@@ -132,6 +132,7 @@
     .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(249,115,22,0.35); }
     .btn-secondary { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.15); }
     .btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+    .btn-soon { opacity: 0.55; cursor: default; pointer-events: none; font-size: 0.82rem; letter-spacing: 0.04em; }
 
     /* MOCK CARD */
     .mock-wrap { animation: fadeUp 0.7s 0.4s ease both; margin-top: 3.5rem; width: 100%; }
@@ -252,6 +253,7 @@
       text-decoration: none; border: 1px solid var(--border); transition: all 0.2s;
     }
     .tier-btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+    .tier-btn-soon { opacity: 0.45; cursor: default; pointer-events: none; }
 
     /* CONTACT */
     #contact {
@@ -400,8 +402,8 @@
     One screen. Eight coins. Updated every minute.
   </p>
   <div class="btn-group">
-    <a href="#" class="btn btn-primary">Download on App Store</a>
-    <a href="#" class="btn btn-secondary">Get it on Google Play</a>
+    <span class="btn btn-primary btn-soon">App Store — Coming Soon</span>
+    <span class="btn btn-secondary btn-soon">Google Play — Coming Soon</span>
   </div>
 
   <!-- Mock signal card -->
@@ -503,7 +505,7 @@
           <div class="tier-feature"><span class="tier-check">✓</span> RSI · EMA9 · EMA21</div>
         </div>
         <div class="tier-cta">
-          <a href="#" class="tier-btn-outline">Download free</a>
+          <span class="tier-btn-outline tier-btn-soon">Coming Soon</span>
         </div>
       </div>
 
@@ -523,7 +525,7 @@
           <div class="tier-feature"><span class="tier-check">✓</span> Push notifications</div>
         </div>
         <div class="tier-cta">
-          <a href="#" class="tier-btn">Get Pro</a>
+          <span class="tier-btn tier-btn-soon">Coming Soon</span>
         </div>
       </div>
 
@@ -542,7 +544,7 @@
           <div class="tier-feature"><span class="tier-check">✓</span> Priority support</div>
         </div>
         <div class="tier-cta">
-          <a href="#" class="tier-btn-outline">Get VIP</a>
+          <span class="tier-btn-outline tier-btn-soon">Coming Soon</span>
         </div>
       </div>
 
