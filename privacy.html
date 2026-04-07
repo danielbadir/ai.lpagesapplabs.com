@@ -32,7 +32,8 @@
     p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; }
     a { color: var(--orange); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.88rem; }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.2rem 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 420px; }
     th { text-align: left; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); }
     td { padding: 0.6rem 0.8rem; color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top; }
     footer { border-top: 1px solid var(--border); padding: 2rem 5%; text-align: center; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); opacity: 0.5; }
@@ -72,13 +73,13 @@
   <p>The app calls our backend (hosted on Railway) for RSI and EMA signal data. Requests include the coin ticker and your IP address — standard for any HTTPS request. IP addresses are not logged or stored. Rate limiting (30 req/min per IP) prevents abuse.</p>
 
   <h2>4. Third-party services</h2>
-  <table>
+  <div class="table-wrap"><table>
     <tr><th>Service</th><th>Purpose</th><th>Privacy Policy</th></tr>
     <tr><td>RevenueCat</td><td>Subscription management</td><td><a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">revenuecat.com/privacy</a></td></tr>
     <tr><td>Firebase (Google)</td><td>Push notifications</td><td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">firebase.google.com</a></td></tr>
     <tr><td>Binance</td><td>Market data (public API)</td><td><a href="https://www.binance.com/en/privacy" target="_blank" rel="noopener noreferrer">binance.com</a></td></tr>
     <tr><td>Railway</td><td>Backend hosting</td><td><a href="https://railway.app/legal/privacy" target="_blank" rel="noopener noreferrer">railway.app</a></td></tr>
-  </table>
+  </table></div>
 
   <h2>5. Children</h2>
   <p>The app is not directed at children under 13 (US) or 16 (EU). We do not knowingly collect data from children.</p>
