@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Crypto Highflags — The pulse of crypto, visualized.</title>
+  <meta name="description" content="Real-time cryptocurrency market indicators. RSI, EMA crossover, and market mood for BTC, ETH, SOL and more. Not financial advice.">
+  <link rel="canonical" href="https://ai.lpagesapplabs.com/" />
+  <meta property="og:title" content="AI Crypto Highflags — The pulse of crypto, visualized." />
+  <meta property="og:description" content="Real-time cryptocurrency market indicators. RSI, EMA crossover, and market mood. Not financial advice." />
+  <meta property="og:url" content="https://ai.lpagesapplabs.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://ai.lpagesapplabs.com/icon.png" />
+  <meta name="theme-color" content="#0F172A" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0F172A; --bg2: #111827;
+      --surface: #1E293B; --surface2: #162032;
+      --orange: #f97316;
+      --orange-glow: rgba(249,115,22,0.15);
+      --orange-glow2: rgba(249,115,22,0.07);
+      --cyan: #22D3EE;
+      --green: #22c55e; --muted: #94A3B8;
+      --white: #F8FAFC;
+      --border: rgba(249,115,22,0.18);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px; line-height: 1.7; overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+    section { position: relative; z-index: 1; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 5%;
+      background: rgba(15,23,42,0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1rem; letter-spacing: 0.02em;
+      color: var(--white); display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0; }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-platform {
+      font-family: 'DM Mono', monospace; font-size: 0.72rem;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border: 1px solid var(--border); padding: 0.35rem 0.8rem;
+      border-radius: 6px; transition: all 0.2s; white-space: nowrap;
+    }
+    .nav-platform:hover { color: var(--cyan); border-color: rgba(34,211,238,0.3); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 9rem 5% 5rem; overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(249,115,22,0.09) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none; animation: pulse-glow 6s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.7; transform: translate(-50%,-50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%,-50%) scale(1.08); }
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'DM Mono', monospace; font-size: 0.72rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--orange); background: var(--orange-glow2);
+      border: 1px solid var(--border);
+      padding: 0.4rem 1rem; border-radius: 999px;
+      margin-bottom: 2rem; animation: fadeUp 0.6s ease both;
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange); animation: blink 2s ease infinite; flex-shrink: 0;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      line-height: 1.15; letter-spacing: -0.02em;
+      margin-bottom: 1.5rem; animation: fadeUp 0.7s 0.1s ease both;
+    }
+    h1 .accent { color: var(--orange); }
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.1rem); color: var(--muted);
+      max-width: 460px; margin: 0 auto 2.5rem; font-weight: 300;
+      animation: fadeUp 0.7s 0.2s ease both; line-height: 1.8;
+    }
+    .btn-group {
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+      padding: 0.85rem 1.8rem; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      font-weight: 500; text-decoration: none; cursor: pointer; transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-primary { background: var(--orange); color: #0F172A; border: none; font-weight: 700; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(249,115,22,0.35); }
+    .btn-secondary { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.15); }
+    .btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+    /* MOCK CARD */
+    .mock-wrap { animation: fadeUp 0.7s 0.4s ease both; margin-top: 3.5rem; width: 100%; }
+    .mock {
+      max-width: 340px; width: 100%; margin: 0 auto;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px; text-align: left;
+    }
+    .mock-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .mock-icon { font-size: 24px; flex-shrink: 0; }
+    .mock-coin { font-size: 16px; font-weight: 700; }
+    .mock-price { margin-left: auto; font-size: 13px; color: var(--muted); }
+    .mock-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .chips { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+    .chip { padding: 5px 9px; border-radius: 7px; font-size: 11px; font-weight: 600; }
+    .chip-sub { font-size: 10px; color: inherit; opacity: 0.7; display: block; font-weight: 400; }
+    .chip-green { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+    .chip-grey  { background: rgba(148,163,184,0.1); border: 1px solid rgba(148,163,184,0.25); color: var(--muted); }
+    .bar-row { display: flex; align-items: center; gap: 8px; }
+    .bar-label { font-size: 12px; color: var(--green); font-weight: 600; min-width: 48px; }
+    .bar-track { flex: 1; height: 6px; background: #2a3a5a; border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--green); border-radius: 4px; }
+    .bar-pct { font-size: 11px; color: var(--muted); }
+
+    .hero-stat-bar {
+      display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;
+      margin-top: 3.5rem; padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.7s 0.5s ease both; width: 100%;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--orange); }
+    .stat-label { font-size: 0.7rem; color: var(--muted); font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SECTION COMMON */
+    .section-label {
+      font-family: 'DM Mono', monospace; font-size: 0.72rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      font-weight: 700; line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-sub { color: var(--muted); font-size: 0.95rem; max-width: 480px; }
+
+    /* HOW IT WORKS */
+    #how {
+      padding: 7rem 5%;
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+    }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+    .how-header { margin-bottom: 3rem; }
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .how-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.8rem;
+    }
+    .how-num {
+      font-family: 'DM Mono', monospace; font-size: 0.72rem;
+      color: var(--orange); letter-spacing: 0.1em; margin-bottom: 0.8rem;
+    }
+    .how-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .how-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .how-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    /* PRICING */
+    #pricing { padding: 7rem 5%; }
+    .pricing-inner { max-width: 900px; margin: 0 auto; }
+    .pricing-header { text-align: center; margin-bottom: 3rem; }
+    .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+    .tier { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface2); display: flex; flex-direction: column; }
+    .tier.highlight { border-color: var(--orange); background: var(--orange-glow2); }
+    .tier-head {
+      padding: 1.2rem 1.5rem; background: rgba(255,255,255,0.02);
+      display: flex; justify-content: space-between; align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+    }
+    .tier.highlight .tier-head { background: var(--orange-glow); }
+    .tier-badge {
+      display: inline-block; font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--orange); color: #0F172A;
+      padding: 0.15rem 0.5rem; border-radius: 4px; margin-left: 8px;
+      vertical-align: middle;
+    }
+    .tier-name { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; }
+    .tier-price { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; text-align: right; }
+    .tier-period { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+    .tier-body { padding: 1.5rem; flex: 1; }
+    .tier-feature { display: flex; gap: 0.6rem; font-size: 0.88rem; margin-bottom: 0.7rem; align-items: flex-start; }
+    .tier-check { color: var(--orange); flex-shrink: 0; font-weight: 700; }
+    .tier-cta { padding: 0 1.5rem 1.5rem; }
+    .tier-btn {
+      display: block; width: 100%;
+      background: var(--orange); color: #0F172A;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
+      text-align: center; padding: 0.8rem; border-radius: 8px;
+      text-decoration: none; transition: opacity 0.2s;
+    }
+    .tier-btn:hover { opacity: 0.88; }
+    .tier-btn-outline {
+      display: block; width: 100%;
+      background: transparent; color: var(--muted);
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      text-align: center; padding: 0.8rem; border-radius: 8px;
+      text-decoration: none; border: 1px solid var(--border); transition: all 0.2s;
+    }
+    .tier-btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* CONTACT */
+    #contact {
+      padding: 6rem 5%;
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .contact-box {
+      max-width: 480px; margin: 2rem auto 0;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 2rem;
+    }
+    .contact-box p { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; }
+    .contact-email {
+      display: inline-block;
+      font-family: 'DM Mono', monospace; font-size: 0.9rem;
+      color: var(--orange); text-decoration: none;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border); border-radius: 6px;
+      transition: border-color 0.2s; word-break: break-all;
+    }
+    .contact-email:hover { border-color: var(--orange); }
+
+    /* DISCLAIMER */
+    #disclaimer {
+      padding: 3.5rem 5%;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    #disclaimer p {
+      max-width: 600px; margin: 0 auto;
+      font-family: 'DM Mono', monospace; font-size: 0.75rem;
+      color: #4a5568; line-height: 1.9; letter-spacing: 0.01em;
+    }
+    #disclaimer a { color: #5a7a8a; }
+    #disclaimer a:hover { color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 5%;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem; position: relative; z-index: 1;
+    }
+    .footer-brand {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem;
+      color: var(--orange); text-decoration: none;
+    }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a {
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); opacity: 0.45; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* MOBILE NAV */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; flex-shrink: 0; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--muted); border-radius: 2px; }
+    .nav-mobile { display: none; flex-direction: column; background: rgba(15,23,42,0.97); border-top: 1px solid var(--border); padding: 0.5rem 5%; }
+    .nav-mobile a { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); transition: color 0.2s; }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: var(--orange); }
+    .nav-mobile.open { display: flex; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-platform { display: none; }
+      .nav-hamburger { display: flex; }
+
+      #hero { padding: 6rem 5% 3.5rem; }
+      h1 { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+      .hero-sub { font-size: 0.95rem; }
+      .btn-group { flex-direction: column; align-items: center; }
+      .btn { width: 100%; max-width: 300px; }
+
+      .mock { padding: 16px; }
+      .chips { gap: 6px; }
+
+      .hero-stat-bar { gap: 1.2rem; margin-top: 2.5rem; padding-top: 2rem; }
+      .stat-num { font-size: 1.3rem; }
+
+      #how { padding: 4rem 5%; }
+      .how-grid { grid-template-columns: 1fr; }
+
+      #pricing { padding: 4rem 5%; }
+      .tiers { grid-template-columns: 1fr; }
+
+      #contact { padding: 4rem 5%; }
+      .contact-box { padding: 1.5rem; }
+
+      footer { flex-direction: column; text-align: center; align-items: center; }
+      .footer-links { justify-content: center; gap: 1rem; }
+    }
+
+    @media (max-width: 380px) {
+      h1 { font-size: 1.75rem; }
+      .hero-badge { font-size: 0.65rem; padding: 0.35rem 0.8rem; }
+      .stat-num { font-size: 1.1rem; }
+      .hero-stat-bar { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">
+    <img src="icon.png" alt="AI Crypto Highflags" /> <span>AI Crypto Highflags</span>
+  </a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+    <a href="https://lpagesapplabs.com" class="nav-platform" rel="noopener noreferrer">← Platform</a>
+  </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="#how" onclick="closeMenu()">How it works</a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="privacy.html" onclick="closeMenu()">Privacy</a>
+  <a href="terms.html" onclick="closeMenu()">Terms</a>
+  <a href="https://lpagesapplabs.com" onclick="closeMenu()">← Platform</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge"><span class="badge-dot"></span> Free to start · No account needed</div>
+  <h1>What is BTC's mood<br><span class="accent">right now?</span></h1>
+  <p class="hero-sub">
+    Not the price. Not the volume.
+    The market mood — backed by RSI and EMA on live data.
+    One screen. Eight coins. Updated every minute.
+  </p>
+  <div class="btn-group">
+    <a href="#" class="btn btn-primary">Download on App Store</a>
+    <a href="#" class="btn btn-secondary">Get it on Google Play</a>
+  </div>
+
+  <!-- Mock signal card -->
+  <div class="mock-wrap">
+    <div class="mock">
+      <div class="mock-header">
+        <span class="mock-icon">😊</span>
+        <span class="mock-coin">BTC</span>
+        <span class="mock-price">$94,210.00</span>
+      </div>
+      <div class="mock-label">Market Indicators</div>
+      <div class="chips">
+        <div class="chip chip-green">
+          RSI &nbsp;38.4
+          <span class="chip-sub">Oversold</span>
+        </div>
+        <div class="chip chip-green">
+          EMA 9 &nbsp;$93,890
+        </div>
+        <div class="chip chip-grey">
+          EMA 21 &nbsp;$93,620
+        </div>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Bullish</span>
+        <div class="bar-track"><div class="bar-fill" style="width:74%"></div></div>
+        <span class="bar-pct">74%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stat-bar">
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Coins tracked</div></div>
+    <div class="stat"><div class="stat-num">60s</div><div class="stat-label">Signal refresh</div></div>
+    <div class="stat"><div class="stat-num">$0</div><div class="stat-label">To start</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Data collected</div></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="how-inner">
+    <div class="how-header reveal">
+      <div class="section-label">How it works</div>
+      <h2 class="section-title">Read the market in seconds.</h2>
+      <p class="section-sub">No charts to open. No formulas to learn.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-card reveal">
+        <div class="how-num">01</div>
+        <div class="how-icon">📡</div>
+        <div class="how-title">Live data from Binance</div>
+        <div class="how-desc">Prices update every 3 seconds. Chart every 10. Signal every 60. Always fresh, always from the source.</div>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-num">02</div>
+        <div class="how-icon">🔢</div>
+        <div class="how-title">RSI + EMA calculated</div>
+        <div class="how-desc">RSI tells you if a coin is oversold or overbought. EMA crossover shows if momentum is building or fading.</div>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-num">03</div>
+        <div class="how-icon">😊</div>
+        <div class="how-title">Mood in one glance</div>
+        <div class="how-desc">Bullish, Neutral, or Bearish — with a strength meter. The full picture without the complexity.</div>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-num">04</div>
+        <div class="how-icon">⚡</div>
+        <div class="how-title">Alerts when it matters</div>
+        <div class="how-desc">Get notified when RSI hits extreme zones or EMA lines cross. Stay informed without watching a screen.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-header reveal">
+      <div class="section-label">Pricing</div>
+      <h2 class="section-title">Simple. Transparent.</h2>
+      <p class="section-sub" style="margin:0 auto;">Start free. Upgrade when you want more coins.</p>
+    </div>
+    <div class="tiers reveal">
+
+      <div class="tier">
+        <div class="tier-head">
+          <div>
+            <div class="tier-name">Free</div>
+            <div class="tier-period" style="margin-top:2px;">forever</div>
+          </div>
+          <div class="tier-price">$0</div>
+        </div>
+        <div class="tier-body">
+          <div class="tier-feature"><span class="tier-check">✓</span> Live prices — BTC, ETH, SOL</div>
+          <div class="tier-feature"><span class="tier-check">✓</span> 4h price chart</div>
+          <div class="tier-feature"><span class="tier-check">✓</span> Market mood indicator</div>
+          <div class="tier-feature"><span class="tier-check">✓</span> RSI · EMA9 · EMA21</div>
+        </div>
+        <div class="tier-cta">
+          <a href="#" class="tier-btn-outline">Download free</a>
+        </div>
+      </div>
+
+      <div class="tier highlight">
+        <div class="tier-head">
+          <div>
+            <div class="tier-name" style="color:var(--orange);">Pro <span class="tier-badge">Popular</span></div>
+            <div class="tier-period" style="margin-top:2px;">per month</div>
+          </div>
+          <div class="tier-price" style="color:var(--orange);">$9.99</div>
+        </div>
+        <div class="tier-body">
+          <div class="tier-feature"><span class="tier-check">✓</span> Everything in Free</div>
+          <div class="tier-feature"><span class="tier-check">✓</span> 6 coins: + BNB, XRP, DOGE</div>
+          <div class="tier-feature"><span class="tier-check">✓</span> Signal strength meter</div>
+          <div class="tier-feature"><span class="tier-check">✓</span> RSI zone + EMA crossover</div>
+          <div class="tier-feature"><span class="tier-check">✓</span> Push notifications</div>
+        </div>
+        <div class="tier-cta">
+          <a href="#" class="tier-btn">Get Pro</a>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-head">
+          <div>
+            <div class="tier-name" style="color:#f59e0b;">VIP</div>
+            <div class="tier-period" style="margin-top:2px;">per month</div>
+          </div>
+          <div class="tier-price" style="color:#f59e0b;">$29.99</div>
+        </div>
+        <div class="tier-body">
+          <div class="tier-feature"><span class="tier-check">✓</span> Everything in Pro</div>
+          <div class="tier-feature"><span class="tier-check">✓</span> 8 coins: + ADA, AVAX</div>
+          <div class="tier-feature"><span class="tier-check">✓</span> Early access to new coins</div>
+          <div class="tier-feature"><span class="tier-check">✓</span> Priority support</div>
+        </div>
+        <div class="tier-cta">
+          <a href="#" class="tier-btn-outline">Get VIP</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">Get in Touch</div>
+    <h2 class="section-title">Contact</h2>
+  </div>
+  <div class="contact-box reveal">
+    <p>For questions, support, or feedback — we're here.</p>
+    <a href="mailto:contact@lpagesapplabs.com" class="contact-email">contact@lpagesapplabs.com</a>
+  </div>
+</section>
+
+<!-- DISCLAIMER -->
+<section id="disclaimer">
+  <p>
+    Market data and technical indicators are displayed for informational purposes only
+    and do not constitute financial advice or a recommendation to buy or sell any asset.
+    Cryptocurrency trading involves significant risk, including the possible loss of all capital.
+    Always make your own decisions.
+    <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a>
+  </p>
+</section>
+
+<footer>
+  <a href="#hero" class="footer-brand">AI Crypto Highflags</a>
+  <div class="footer-links">
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="https://lpagesapplabs.com" rel="noopener noreferrer">LPagesAppLabs</a>
+  </div>
+  <div class="footer-copy">© 2026 LPagesAppLabs · Not financial advice</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('navMobile');
+  hamburger.addEventListener('click', () => navMobile.classList.toggle('open'));
+  function closeMenu() { navMobile.classList.remove('open'); }
+</script>
+</body>
+</html>
