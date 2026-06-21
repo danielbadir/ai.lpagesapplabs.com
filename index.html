@@ -1,396 +1,33 @@
 <!DOCTYPE html>
+<!-- LPagesAppLabs Platform v1.0 · AI Crypto Highflags · contact@lpagesapplabs.com -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="color-scheme" content="dark">
   <title>AI Crypto Highflags — The pulse of crypto, visualized.</title>
   <meta name="description" content="Real-time cryptocurrency market indicators. RSI, EMA crossover, and market mood for BTC, ETH, SOL and more. Not financial advice.">
   <meta name="robots" content="index, follow">
-  <link rel="icon" href="https://lpagesapplabs.com/favicon.ico" sizes="any">
   <link rel="icon" href="https://lpagesapplabs.com/logo.svg" type="image/svg+xml">
   <link rel="canonical" href="https://ai.lpagesapplabs.com/" />
   <meta property="og:title" content="AI Crypto Highflags — The pulse of crypto, visualized." />
   <meta property="og:description" content="Real-time cryptocurrency market indicators. RSI, EMA crossover, and market mood. Not financial advice." />
   <meta property="og:url" content="https://ai.lpagesapplabs.com/" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://ai.lpagesapplabs.com/icon.png" />
+  <meta property="og:image" content="https://lpagesapplabs.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Crypto Highflags — The pulse of crypto, visualized." />
+  <meta name="twitter:description" content="Real-time cryptocurrency market indicators. RSI, EMA crossover, and market mood. Not financial advice." />
+  <meta name="twitter:image" content="https://lpagesapplabs.com/og-image.png" />
   <meta name="theme-color" content="#0F172A" />
-  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
   <link href="https://fonts.bunny.net/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0F172A; --bg2: #111827;
-      --surface: #1E293B; --surface2: #162032;
-      --orange: #f97316;
-      --orange-glow: rgba(249,115,22,0.15);
-      --orange-glow2: rgba(249,115,22,0.07);
-      --cyan: #22D3EE;
-      --green: #22c55e; --muted: #94A3B8;
-      --white: #F8FAFC;
-      --border: rgba(249,115,22,0.18);
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg); color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px; line-height: 1.7; overflow-x: hidden;
-    }
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0; opacity: 0.4;
-    }
-    section { position: relative; z-index: 1; }
-
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.25rem 5%;
-      background: rgba(15,23,42,0.88);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: 1rem; letter-spacing: 0.02em;
-      color: var(--white); display: flex; align-items: center; gap: 0.5rem;
-      text-decoration: none; flex-shrink: 0;
-    }
-    .nav-logo span { color: var(--orange); }
-    .nav-logo img { width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0; }
-    .nav-right { display: flex; align-items: center; gap: 2rem; }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a {
-      font-family: 'DM Mono', monospace; font-size: 0.75rem;
-      color: var(--muted); text-decoration: none;
-      letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--orange); }
-    .nav-platform {
-      font-family: 'DM Mono', monospace; font-size: 0.72rem;
-      color: var(--muted); text-decoration: none;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      border: 1px solid var(--border); padding: 0.35rem 0.8rem;
-      border-radius: 6px; transition: all 0.2s; white-space: nowrap;
-    }
-    .nav-platform:hover { color: var(--cyan); border-color: rgba(34,211,238,0.3); }
-
-    /* HERO */
-    #hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; padding: 9rem 5% 5rem; overflow: hidden;
-    }
-    .hero-glow {
-      position: absolute; width: 700px; height: 700px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(249,115,22,0.09) 0%, transparent 70%);
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
-      pointer-events: none; animation: pulse-glow 6s ease-in-out infinite;
-    }
-    @keyframes pulse-glow {
-      0%, 100% { opacity: 0.7; transform: translate(-50%,-50%) scale(1); }
-      50% { opacity: 1; transform: translate(-50%,-50%) scale(1.08); }
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-family: 'DM Mono', monospace; font-size: 0.72rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--orange); background: var(--orange-glow2);
-      border: 1px solid var(--border);
-      padding: 0.4rem 1rem; border-radius: 999px;
-      margin-bottom: 2rem; animation: fadeUp 0.6s ease both;
-    }
-    .badge-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--orange); animation: blink 2s ease infinite; flex-shrink: 0;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    h1 {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: clamp(2rem, 5vw, 3.8rem);
-      line-height: 1.15; letter-spacing: -0.02em;
-      margin-bottom: 1.5rem; animation: fadeUp 0.7s 0.1s ease both;
-    }
-    h1 .accent { color: var(--orange); }
-    .hero-sub {
-      font-size: clamp(0.95rem, 2vw, 1.1rem); color: var(--muted);
-      max-width: 460px; margin: 0 auto 2.5rem; font-weight: 300;
-      animation: fadeUp 0.7s 0.2s ease both; line-height: 1.8;
-    }
-    .btn-group {
-      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
-      animation: fadeUp 0.7s 0.3s ease both;
-    }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
-      padding: 0.85rem 1.8rem; border-radius: 8px;
-      font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
-      font-weight: 500; text-decoration: none; cursor: pointer; transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .btn-primary { background: var(--orange); color: #0F172A; border: none; font-weight: 700; }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(249,115,22,0.35); }
-    .btn-secondary { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.15); }
-    .btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
-    .btn-soon { opacity: 0.55; cursor: default; pointer-events: none; font-size: 0.82rem; letter-spacing: 0.04em; }
-
-    /* MOCK CARD */
-    .mock-wrap { animation: fadeUp 0.7s 0.4s ease both; margin-top: 3.5rem; width: 100%; }
-    .mock {
-      max-width: 340px; width: 100%; margin: 0 auto;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 16px; padding: 20px; text-align: left;
-    }
-    .mock-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-    .mock-icon { font-size: 24px; flex-shrink: 0; }
-    .mock-coin { font-size: 16px; font-weight: 700; }
-    .mock-price { margin-left: auto; font-size: 13px; color: var(--muted); }
-    .mock-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
-    .chips { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
-    .chip { padding: 5px 9px; border-radius: 7px; font-size: 11px; font-weight: 600; }
-    .chip-sub { font-size: 10px; color: inherit; opacity: 0.7; display: block; font-weight: 400; }
-    .chip-green { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
-    .chip-grey  { background: rgba(148,163,184,0.1); border: 1px solid rgba(148,163,184,0.25); color: var(--muted); }
-    .bar-row { display: flex; align-items: center; gap: 8px; }
-    .bar-label { font-size: 12px; color: var(--green); font-weight: 600; min-width: 48px; }
-    .bar-track { flex: 1; height: 6px; background: #2a3a5a; border-radius: 4px; overflow: hidden; }
-    .bar-fill { height: 100%; background: var(--green); border-radius: 4px; }
-    .bar-pct { font-size: 11px; color: var(--muted); }
-
-    .hero-stat-bar {
-      display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;
-      margin-top: 3.5rem; padding-top: 2.5rem;
-      border-top: 1px solid var(--border);
-      animation: fadeUp 0.7s 0.5s ease both; width: 100%;
-    }
-    .stat { text-align: center; }
-    .stat-num { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--orange); }
-    .stat-label { font-size: 0.7rem; color: var(--muted); font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* SECTION COMMON */
-    .section-label {
-      font-family: 'DM Mono', monospace; font-size: 0.72rem;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--orange); margin-bottom: 1rem;
-    }
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.7rem, 4vw, 2.6rem);
-      font-weight: 700; line-height: 1.2; margin-bottom: 1rem;
-    }
-    .section-sub { color: var(--muted); font-size: 0.95rem; max-width: 480px; }
-
-    /* HOW IT WORKS */
-    #how {
-      padding: 7rem 5%;
-      background: var(--surface2);
-      border-top: 1px solid var(--border);
-    }
-    .how-inner { max-width: 1100px; margin: 0 auto; }
-    .how-header { margin-bottom: 3rem; }
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.25rem;
-    }
-    .how-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1.8rem;
-    }
-    .how-num {
-      font-family: 'DM Mono', monospace; font-size: 0.72rem;
-      color: var(--orange); letter-spacing: 0.1em; margin-bottom: 0.8rem;
-    }
-    .how-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
-    .how-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .how-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
-
-    /* PRICING */
-    #pricing { padding: 7rem 5%; }
-    .pricing-inner { max-width: 900px; margin: 0 auto; }
-    .pricing-header { text-align: center; margin-bottom: 3rem; }
-    .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
-    .tier { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface2); display: flex; flex-direction: column; }
-    .tier.highlight { border-color: var(--orange); background: var(--orange-glow2); }
-    .tier-head {
-      padding: 1.2rem 1.5rem; background: rgba(255,255,255,0.02);
-      display: flex; justify-content: space-between; align-items: flex-start;
-      border-bottom: 1px solid var(--border);
-    }
-    .tier.highlight .tier-head { background: var(--orange-glow); }
-    .tier-badge {
-      display: inline-block; font-size: 0.6rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      background: var(--orange); color: #0F172A;
-      padding: 0.15rem 0.5rem; border-radius: 4px; margin-left: 8px;
-      vertical-align: middle;
-    }
-    .tier-name { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; }
-    .tier-price { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; text-align: right; }
-    .tier-period { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); }
-    .tier-body { padding: 1.5rem; flex: 1; }
-    .tier-feature { display: flex; gap: 0.6rem; font-size: 0.88rem; margin-bottom: 0.7rem; align-items: flex-start; }
-    .tier-check { color: var(--orange); flex-shrink: 0; font-weight: 700; }
-    .tier-cta { padding: 0 1.5rem 1.5rem; }
-    .tier-btn {
-      display: block; width: 100%;
-      background: var(--orange); color: #0F172A;
-      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
-      text-align: center; padding: 0.8rem; border-radius: 8px;
-      text-decoration: none; transition: opacity 0.2s;
-    }
-    .tier-btn:hover { opacity: 0.88; }
-    .tier-btn-outline {
-      display: block; width: 100%;
-      background: transparent; color: var(--muted);
-      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
-      text-align: center; padding: 0.8rem; border-radius: 8px;
-      text-decoration: none; border: 1px solid var(--border); transition: all 0.2s;
-    }
-    .tier-btn-outline:hover { border-color: var(--orange); color: var(--orange); }
-    .tier-btn-soon { opacity: 0.45; cursor: default; pointer-events: none; }
-
-    /* CONTACT */
-    #contact {
-      padding: 6rem 5%;
-      background: var(--surface2);
-      border-top: 1px solid var(--border);
-      text-align: center;
-    }
-    .contact-box {
-      max-width: 480px; margin: 2rem auto 0;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 2rem;
-    }
-    .contact-box p { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.2rem; }
-    .contact-email {
-      display: inline-block;
-      font-family: 'DM Mono', monospace; font-size: 0.9rem;
-      color: var(--orange); text-decoration: none;
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--border); border-radius: 6px;
-      transition: border-color 0.2s; word-break: break-all;
-    }
-    .contact-email:hover { border-color: var(--orange); }
-
-    /* DISCLAIMER */
-    #disclaimer {
-      padding: 3.5rem 5%;
-      border-top: 1px solid var(--border);
-      text-align: center;
-    }
-    #disclaimer p {
-      max-width: 600px; margin: 0 auto;
-      font-family: 'DM Mono', monospace; font-size: 0.75rem;
-      color: var(--muted); line-height: 1.9; letter-spacing: 0.01em;
-    }
-    #disclaimer a { color: var(--muted); text-decoration: underline; }
-    #disclaimer a:hover { color: var(--white); }
-
-    /* FOOTER */
-    footer {
-      padding: 2rem 5%;
-      border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 1rem; position: relative; z-index: 1;
-    }
-    .footer-brand {
-      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem;
-      color: var(--orange); text-decoration: none;
-    }
-    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .footer-links a {
-      font-family: 'DM Mono', monospace; font-size: 0.7rem;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--muted); text-decoration: none; transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--orange); }
-    .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); opacity: 0.45; }
-
-    /* NOTIFY FORM */
-    .notify-strip {
-      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
-      background: var(--orange-glow2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 1rem 1.4rem; margin-top: 1.8rem;
-      animation: fadeUp 0.7s 0.45s ease both; max-width: 480px;
-    }
-    .notify-strip p { font-size: 0.85rem; color: var(--muted); margin: 0; white-space: nowrap; }
-    .notify-form { display: flex; gap: 0.5rem; flex: 1; min-width: 200px; }
-    .notify-form input[type="email"] {
-      flex: 1; background: var(--bg); border: 1px solid var(--border);
-      border-radius: 6px; padding: 0.55rem 0.85rem;
-      font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--white);
-      outline: none; transition: border-color 0.2s;
-    }
-    .notify-form input[type="email"]::placeholder { color: var(--muted); opacity: 0.55; }
-    .notify-form input[type="email"]:focus { border-color: var(--orange); }
-    .notify-form button {
-      background: var(--orange); color: #0F172A; border: none; border-radius: 6px;
-      padding: 0.55rem 1.1rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
-      font-weight: 600; cursor: pointer; transition: opacity 0.2s; white-space: nowrap;
-    }
-    .notify-form button:hover { opacity: 0.88; }
-
-    /* REVEAL */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
-
-    /* MOBILE NAV */
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; flex-shrink: 0; }
-    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--muted); border-radius: 2px; }
-    .nav-mobile { display: none; flex-direction: column; background: rgba(15,23,42,0.97); border-top: 1px solid var(--border); padding: 0.5rem 5%; }
-    .nav-mobile a { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); transition: color 0.2s; }
-    .nav-mobile a:last-child { border-bottom: none; }
-    .nav-mobile a:hover { color: var(--orange); }
-    .nav-mobile.open { display: flex; }
-
-    /* ── MOBILE ── */
-    @media (max-width: 768px) {
-      .nav-links, .nav-platform { display: none; }
-      .nav-hamburger { display: flex; }
-
-      #hero { padding: 6rem 5% 3.5rem; }
-      h1 { font-size: clamp(1.8rem, 8vw, 2.4rem); }
-      .hero-sub { font-size: 0.95rem; }
-      .btn-group { flex-direction: column; align-items: center; }
-      .btn { width: 100%; max-width: 300px; }
-
-      .mock { padding: 16px; }
-      .chips { gap: 6px; }
-
-      .hero-stat-bar { gap: 1.2rem; margin-top: 2.5rem; padding-top: 2rem; }
-      .stat-num { font-size: 1.3rem; }
-
-      #how { padding: 4rem 5%; }
-      .how-grid { grid-template-columns: 1fr; }
-
-      #pricing { padding: 4rem 5%; }
-      .tiers { grid-template-columns: 1fr; }
-
-      #contact { padding: 4rem 5%; }
-      .contact-box { padding: 1.5rem; }
-
-      footer { flex-direction: column; text-align: center; align-items: center; }
-      .footer-links { justify-content: center; gap: 1rem; }
-    }
-
-    @media (max-width: 380px) {
-      h1 { font-size: 1.75rem; }
-      .hero-badge { font-size: 0.65rem; padding: 0.35rem 0.8rem; }
-      .stat-num { font-size: 1.1rem; }
-      .hero-stat-bar { gap: 1rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
 <nav>
   <a href="#hero" class="nav-logo">
@@ -405,19 +42,20 @@
     </div>
     <a href="https://lpagesapplabs.com" class="nav-platform" rel="noopener noreferrer">← Platform</a>
   </div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
     <span></span><span></span><span></span>
   </button>
 </nav>
 <div class="nav-mobile" id="navMobile">
-  <a href="#how" onclick="closeMenu()">How it works</a>
-  <a href="#pricing" onclick="closeMenu()">Pricing</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
-  <a href="privacy.html" onclick="closeMenu()">Privacy</a>
-  <a href="terms.html" onclick="closeMenu()">Terms</a>
-  <a href="https://lpagesapplabs.com" onclick="closeMenu()">← Platform</a>
+  <a href="#how">How it works</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#contact">Contact</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="terms.html">Terms</a>
+  <a href="https://lpagesapplabs.com" rel="noopener noreferrer">← Platform</a>
 </div>
 
+<main id="main-content">
 <!-- HERO -->
 <section id="hero">
   <div class="hero-glow"></div>
@@ -439,9 +77,9 @@
       <div class="mock-header">
         <span class="mock-icon">😊</span>
         <span class="mock-coin">BTC</span>
-        <span class="mock-price">$94,210.00</span>
+        <span class="mock-price">Example price</span>
       </div>
-      <div class="mock-label">Market Indicators</div>
+      <div class="mock-label">Market Indicators <span class="mock-tag">// Example data</span></div>
       <div class="chips">
         <div class="chip chip-green">
           RSI &nbsp;38.4
@@ -456,25 +94,26 @@
       </div>
       <div class="bar-row">
         <span class="bar-label">Bullish</span>
-        <div class="bar-track"><div class="bar-fill" style="width:74%"></div></div>
+        <div class="bar-track"><div class="bar-fill bar-fill-74"></div></div>
         <span class="bar-pct">74%</span>
       </div>
     </div>
   </div>
 
   <div class="notify-strip">
-    <p>Be the first to know when it launches.</p>
-    <form class="notify-form" data-product="AI Crypto Highflags" onsubmit="notifyMe(this,event)">
-      <input type="email" placeholder="your@email.com" required autocomplete="email">
+    <p>Be the first to know when it launches.<br><span class="notify-sub">Opens your email client. No server, no tracking.</span></p>
+    <form class="notify-form" data-product="AI Crypto Highflags">
+      <input type="email" placeholder="your@email.com" required autocomplete="email" aria-label="Email address">
       <button type="submit">Notify Me</button>
     </form>
   </div>
   <div class="hero-stat-bar">
     <div class="stat"><div class="stat-num">8</div><div class="stat-label">Coins tracked</div></div>
-    <div class="stat"><div class="stat-num">60s</div><div class="stat-label">Signal refresh</div></div>
+    <div class="stat"><div class="stat-num">60s</div><div class="stat-label">Indicator refresh</div></div>
     <div class="stat"><div class="stat-num">$0</div><div class="stat-label">To start</div></div>
-    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Data collected</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Ads or Trackers<span class="stat-footnote">†</span></div></div>
   </div>
+  <p class="stat-footnote-text">† Push notifications use Firebase Cloud Messaging (FCM) — see <a href="privacy.html">Privacy Policy</a>.</p>
 </section>
 
 <!-- HOW IT WORKS -->
@@ -488,25 +127,25 @@
     <div class="how-grid">
       <div class="how-card reveal">
         <div class="how-num">01</div>
-        <div class="how-icon">📡</div>
+        <div class="how-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
         <div class="how-title">Live data from Binance</div>
-        <div class="how-desc">Prices update every 3 seconds. Chart every 10. Signal every 60. Always fresh, always from the source.</div>
+        <div class="how-desc">In the app, prices update every 3 seconds, chart every 10, indicators every 60 — always live, always from Binance.</div>
       </div>
       <div class="how-card reveal">
         <div class="how-num">02</div>
-        <div class="how-icon">🔢</div>
+        <div class="how-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
         <div class="how-title">RSI + EMA calculated</div>
         <div class="how-desc">RSI tells you if a coin is oversold or overbought. EMA crossover shows if momentum is building or fading.</div>
       </div>
       <div class="how-card reveal">
         <div class="how-num">03</div>
-        <div class="how-icon">😊</div>
+        <div class="how-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
         <div class="how-title">Mood in one glance</div>
         <div class="how-desc">Bullish, Neutral, or Bearish — with a strength meter. The full picture without the complexity.</div>
       </div>
       <div class="how-card reveal">
         <div class="how-num">04</div>
-        <div class="how-icon">⚡</div>
+        <div class="how-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
         <div class="how-title">Alerts when it matters</div>
         <div class="how-desc">Get notified when RSI hits extreme zones or EMA lines cross. Stay informed without watching a screen.</div>
       </div>
@@ -520,7 +159,7 @@
     <div class="pricing-header reveal">
       <div class="section-label">Pricing</div>
       <h2 class="section-title">Simple. Transparent.</h2>
-      <p class="section-sub" style="margin:0 auto;">Start free. Upgrade when you want more coins.</p>
+      <p class="section-sub">Start free. Upgrade when you want more coins.</p>
     </div>
     <div class="tiers reveal">
 
@@ -528,7 +167,7 @@
         <div class="tier-head">
           <div>
             <div class="tier-name">Free</div>
-            <div class="tier-period" style="margin-top:2px;">forever</div>
+            <div class="tier-period">forever</div>
           </div>
           <div class="tier-price">$0</div>
         </div>
@@ -546,15 +185,15 @@
       <div class="tier highlight">
         <div class="tier-head">
           <div>
-            <div class="tier-name" style="color:var(--orange);">Pro <span class="tier-badge">Popular</span></div>
-            <div class="tier-period" style="margin-top:2px;">per month</div>
+            <div class="tier-name">Pro <span class="tier-badge">Popular</span></div>
+            <div class="tier-period">per month</div>
           </div>
-          <div class="tier-price" style="color:var(--orange);">$9.99</div>
+          <div class="tier-price">$9.99</div>
         </div>
         <div class="tier-body">
           <div class="tier-feature"><span class="tier-check">✓</span> Everything in Free</div>
           <div class="tier-feature"><span class="tier-check">✓</span> 6 coins: + BNB, XRP, DOGE</div>
-          <div class="tier-feature"><span class="tier-check">✓</span> Signal strength meter</div>
+          <div class="tier-feature"><span class="tier-check">✓</span> Strength meter</div>
           <div class="tier-feature"><span class="tier-check">✓</span> RSI zone + EMA crossover</div>
           <div class="tier-feature"><span class="tier-check">✓</span> Push notifications</div>
         </div>
@@ -566,10 +205,10 @@
       <div class="tier">
         <div class="tier-head">
           <div>
-            <div class="tier-name" style="color:#f59e0b;">VIP</div>
-            <div class="tier-period" style="margin-top:2px;">per month</div>
+            <div class="tier-name tier-name-vip">VIP</div>
+            <div class="tier-period">per month</div>
           </div>
-          <div class="tier-price" style="color:#f59e0b;">$29.99</div>
+          <div class="tier-price tier-price-vip">$29.99</div>
         </div>
         <div class="tier-body">
           <div class="tier-feature"><span class="tier-check">✓</span> Everything in Pro</div>
@@ -609,6 +248,8 @@
   </p>
 </section>
 
+</main>
+
 <footer>
   <a href="#hero" class="footer-brand">AI Crypto Highflags</a>
   <div class="footer-links">
@@ -622,17 +263,6 @@
   <div class="footer-copy">© 2026 LPagesAppLabs / D.Badi · Not financial advice</div>
 </footer>
 
-<script>
-  function notifyMe(f,e){e.preventDefault();var em=f.querySelector('input').value;var p=f.dataset.product;window.location='mailto:contact@lpagesapplabs.com?subject=Launch+notification:+'+encodeURIComponent(p)+'&body=Please+add+'+encodeURIComponent(em)+'+to+the+launch+list+for+'+encodeURIComponent(p)+'.';}
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  const hamburger = document.getElementById('hamburger');
-  const navMobile = document.getElementById('navMobile');
-  hamburger.addEventListener('click', () => navMobile.classList.toggle('open'));
-  function closeMenu() { navMobile.classList.remove('open'); }
-</script>
+<script src="main.js" defer></script>
 </body>
 </html>

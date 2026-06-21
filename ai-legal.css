@@ -1,0 +1,56 @@
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0F172A; --surface: #1E293B; --surface2: #162032;
+      --orange: #f97316; --border: rgba(249,115,22,0.18);
+      --white: #F8FAFC; --muted: #94A3B8;
+    }
+    body { background: var(--bg); color: var(--white); font-family: 'DM Sans', sans-serif; line-height: 1.75; }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 5%; background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(18px); border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; color: var(--orange); text-decoration: none; }
+    .nav-back { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--orange); }
+    .content { max-width: 680px; margin: 0 auto; padding: 8rem 5% 5rem; }
+    .label { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--orange); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.8rem; }
+    h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 0.5rem; }
+    .meta { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--muted); margin-bottom: 3rem; }
+    h2 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin: 2.5rem 0 0.8rem; color: var(--white); }
+    p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.2rem 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 420px; }
+    th { text-align: left; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); }
+    td { padding: 0.6rem 0.8rem; color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top; }
+    footer { border-top: 1px solid var(--border); padding: 2rem 5%; text-align: center; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); opacity: 0.5; }
+
+/* terms.html extras */
+.warning-box {
+  background: rgba(249,115,22,0.07); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.2rem 1.5rem; margin: 2rem 0;
+}
+.warning-box p { color: var(--white); font-size: 0.95rem; margin: 0; }
+/* Sub-heading h2 variant (smaller, used in privacy.html data section) */
+.sub-h2 { font-size: 0.95rem; margin-top: 1.2rem; }
+
+/* Skip-to-content — WCAG 2.4.1 Level A */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 1rem;
+  background: #10B981;
+  color: #0F172A;
+  padding: 0.5rem 1.1rem;
+  border-radius: 0 0 6px 6px;
+  z-index: 9999;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+.skip-link:focus { top: 0; outline: 2px solid #0F172A; outline-offset: 2px; }
