@@ -61,7 +61,7 @@
   <p>The app fetches prices and chart data directly from the Binance public API. These are unauthenticated requests — no user data is sent to Binance.</p>
 
   <h3 class="sub-h2">Signal API requests</h3>
-  <p>The app calls our backend (hosted on Railway) for RSI and EMA signal data. Requests include the coin ticker and your IP address — standard for any HTTPS request. IP addresses are not logged or stored. Rate limiting (30 req/min per IP) prevents abuse.</p>
+  <p>The app calls our own backend for RSI and EMA signal data. Requests include the coin ticker and your IP address — standard for any HTTPS request. IP addresses are not logged or stored. Rate limiting is applied per IP to prevent abuse.</p>
 
   <h2>4. Third-party services</h2>
   <div class="table-wrap"><table>
