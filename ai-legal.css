@@ -3,7 +3,7 @@
     :root {
       --bg: #0F172A; --surface: #1E293B; --surface2: #162032;
       --orange: #f97316; --border: rgba(249,115,22,0.18);
-      --white: #F8FAFC; --muted: #94A3B8;
+      --white: #F8FAFC; --muted: #94A3B8; --muted-dim: #8A97A8;
     }
     body { background: var(--bg); color: var(--white); font-family: 'DM Sans', sans-serif; line-height: 1.75; }
     nav {
@@ -27,7 +27,7 @@
     table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 420px; }
     th { text-align: left; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); }
     td { padding: 0.6rem 0.8rem; color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top; }
-    footer { border-top: 1px solid var(--border); padding: 2rem 5%; text-align: center; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); opacity: 0.5; }
+    footer { border-top: 1px solid var(--border); padding: 2rem 5%; text-align: center; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted-dim); }
 
 /* terms.html extras */
 .warning-box {
@@ -64,3 +64,26 @@
 }
 .pre-release p { margin: 0; font-size: 0.9rem; color: #FDBA74; }
 .pre-release strong { color: #FDBA74; }
+
+/* Focus is a designed state, not a browser default. Nothing on this platform
+   defined one except .skip-link, and five inputs actively removed the ring and
+   signalled focus with a 1px border tint only — a colour-only indicator, which
+   fails WCAG 1.4.1 and 2.4.7. White on these surfaces measures >13:1.
+   :focus-visible, so pointer users never see a ring they did not ask for. */
+:focus-visible {
+  outline: 2px solid #F8FAFC;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+a:focus-visible, button:focus-visible, input:focus-visible,
+[tabindex]:focus-visible, .btn:focus-visible {
+  outline: 2px solid #F8FAFC;
+  outline-offset: 2px;
+}
+
+/* Card titles are h3 so screen readers and search engines can navigate by
+   heading; :where() keeps specificity at 0 so the existing class rules,
+   which were written for divs, continue to control every visual property. */
+:where(h3.work-name, h3.feature-title, h3.step-title, h3.svc-title, h3.prod-name, h3.post-title, h3.concept-title, h3.why-title, h3.card-title, h3.tier-name) {
+  margin: 0; font-size: inherit; font-weight: inherit; line-height: inherit;
+}
