@@ -130,7 +130,15 @@
     .mock-coin { font-size: 16px; font-weight: 700; }
     .mock-price { margin-left: auto; font-size: 13px; color: var(--muted); }
     .mock-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
-    .mock-tag { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); opacity: 0.45; text-transform: none; letter-spacing: 0.03em; margin-left: 6px; }
+    /* The mock shows a quantified bullish signal for a product that has not shipped.
+       Solid amber on near-black measures 10.6:1 and bleeds to the card edge — the
+       previous 9px 45%-opacity tag measured 2.29:1 and was invisible in practice. */
+    .mock-notice {
+      margin: -20px -20px 14px; padding: 7px 20px; border-radius: 15px 15px 0 0;
+      background: #FDBA74; color: #0F172A;
+      font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; text-align: center;
+    }
     .chips { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
     .chip { padding: 5px 9px; border-radius: 7px; font-size: 11px; font-weight: 600; }
     .chip-sub { font-size: 10px; color: inherit; opacity: 0.7; display: block; font-weight: 400; }
@@ -346,6 +354,7 @@
       .btn { width: 100%; max-width: 300px; }
 
       .mock { padding: 16px; }
+      .mock-notice { margin: -16px -16px 12px; padding: 6px 16px; border-radius: 11px 11px 0 0; }
       .chips { gap: 6px; }
 
       .hero-stat-bar { gap: 1.2rem; margin-top: 2.5rem; padding-top: 2rem; }
@@ -414,11 +423,11 @@
 
 .stat-footnote-text {
   font-size: 0.75rem;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.60);
   margin-top: 0.5rem;
   text-align: center;
 }
 .stat-footnote-text a {
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.85);
   text-decoration: underline;
 }

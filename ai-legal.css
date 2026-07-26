@@ -54,3 +54,13 @@
   transition: top 0.15s ease;
 }
 .skip-link:focus { top: 0; outline: 2px solid #0F172A; outline-offset: 2px; }
+
+/* Pre-release notice — the policy documents an app that has not shipped yet. */
+.pre-release {
+  background: rgba(249,115,22,0.07);
+  border: 1px solid rgba(249,115,22,0.28);
+  border-left: 3px solid #f97316;
+  border-radius: 8px; padding: 1.1rem 1.4rem; margin: 1.5rem 0 2rem;
+}
+.pre-release p { margin: 0; font-size: 0.9rem; color: #FDBA74; }
+.pre-release strong { color: #FDBA74; }
