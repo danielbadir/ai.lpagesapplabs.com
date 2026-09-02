@@ -40,6 +40,9 @@
       text-decoration: none; flex-shrink: 0;
     }
     .nav-logo span { color: var(--orange); }
+    /* Slot for the replacement product icon. The previous icon.png was removed
+       2026-09-02 pending a new one; drop an <img> back into .nav-logo and it
+       sizes itself. The wordmark stands alone until then. */
     .nav-logo img { width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0; }
     .nav-right { display: flex; align-items: center; gap: 2rem; }
     .nav-links { display: flex; gap: 2rem; }
