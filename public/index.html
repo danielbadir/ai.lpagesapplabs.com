@@ -47,16 +47,22 @@
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
     <span></span><span></span><span></span>
   </button>
+  <!-- Inside <nav> on purpose. nav is position:fixed, so it is the containing
+       block for this absolutely-positioned menu, which lets CSS say top:100%
+       — exactly the bar's height, whatever the logo turns out to be. As a
+       sibling it was in static flow at document y=0, behind the fixed bar and
+       off-screen once scrolled: the menu opened and nobody could see it.
+       Absolute keeps it out of the flex row, so the bar itself is unchanged. -->
+  <div class="nav-mobile" id="navMobile">
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="https://lpagesapplabs.com/company.html" rel="noopener noreferrer">Company</a>
+    <a href="https://lpagesapplabs.com" rel="noopener noreferrer">← Platform</a>
+  </div>
 </nav>
-<div class="nav-mobile" id="navMobile">
-  <a href="#how">How it works</a>
-  <a href="#pricing">Pricing</a>
-  <a href="#contact">Contact</a>
-  <a href="privacy.html">Privacy</a>
-  <a href="terms.html">Terms</a>
-  <a href="https://lpagesapplabs.com/company.html" rel="noopener noreferrer">Company</a>
-  <a href="https://lpagesapplabs.com" rel="noopener noreferrer">← Platform</a>
-</div>
 
 <main id="main-content">
 <!-- HERO -->
