@@ -144,7 +144,12 @@
     }
     .chips { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
     .chip { padding: 5px 9px; border-radius: 7px; font-size: 11px; font-weight: 600; }
-    .chip-sub { font-size: 10px; color: inherit; opacity: 0.7; display: block; font-weight: 400; }
+    /* opacity 0.9, not 0.7. Computed 2026-09-04 with alpha compositing, not eyeballed:
+       --green #22c55e on .chip-green's own rgba(34,197,94,0.1) over --bg #0F172A gives
+       text rgb(29,150,80) on rgb(17,40,47) = 4.04:1 at opacity 0.7 -- below the 4.5:1 AA
+       floor, and 10px is not large text. At 0.9 it is 5.71:1. Values for this chip:
+       0.7=4.04  0.8=4.86  0.9=5.71  1.0=6.73. Do not lower it again without recomputing. */
+    .chip-sub { font-size: 10px; color: inherit; opacity: 0.9; display: block; font-weight: 400; }
     .chip-green { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
     .chip-grey  { background: rgba(148,163,184,0.1); border: 1px solid rgba(148,163,184,0.25); color: var(--muted); }
     .bar-row { display: flex; align-items: center; gap: 8px; }
